@@ -608,7 +608,7 @@ alertmanager:
   serviceMonitor:
     ## If true, a ServiceMonitor will be created for the AlertManager service.
     ##
-    selfMonitor: true
+    selfMonitor: false
 
     ## Scrape interval. If not set, the Prometheus default scrape interval is used.
     ##
@@ -1218,7 +1218,7 @@ grafana:
 ## Flag to disable all the kubernetes component scrapers
 ##
 kubernetesServiceMonitors:
-  enabled: true
+  enabled: false
 
 ## Component scraping the kube api server
 ##
@@ -2105,7 +2105,7 @@ kubeProxy:
 ## Component scraping kube state metrics
 ##
 kubeStateMetrics:
-  enabled: true
+  enabled: false
 
 ## Configuration for kube-state-metrics subchart
 ##
@@ -2215,7 +2215,7 @@ prometheus-node-exporter:
 
   prometheus:
     monitor:
-      enabled: true
+      enabled: false
 
       jobLabel: jobLabel
 
@@ -2790,7 +2790,7 @@ prometheusOperator:
   serviceMonitor:
     ## If true, create a serviceMonitor for prometheus operator
     ##
-    selfMonitor: true
+    selfMonitor: false
 
     ## Labels for ServiceMonitor
     additionalLabels: {}
@@ -3472,7 +3472,7 @@ prometheus:
   serviceMonitor:
     ## If true, create a serviceMonitor for prometheus
     ##
-    selfMonitor: true
+    selfMonitor: false
 
     ## Scrape interval. If not set, the Prometheus default scrape interval is used.
     ##

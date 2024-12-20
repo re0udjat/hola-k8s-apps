@@ -47,6 +47,13 @@ prometheus:
   serviceMonitor:
     selfMonitor: false
 
+  ## The remote_write spec configuration for Prometheus
+  ## ref: https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api.md#remotewritespec
+  remoteWrite:
+    - url: mimir-ingester-zone-a.mimir:8080/api/v1/push
+    - url: mimir-ingester-zone-b.mimir:8080/api/v1/push
+    - url: mimir-ingester-zone-c.mimir:8080/api/v1/push
+
 ####################################
 ## Configuration for AlertManager ##
 ####################################

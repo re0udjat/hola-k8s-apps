@@ -17,11 +17,6 @@ nodeExporter:
     darwin:
       enabled: true
 
-prometheus-node-exporter:
-  prometheus:
-    monitor:
-      enabled: false
-
 #############################################################################
 ## Configuration Operator to manage Prometheus and Alertmanager components ##
 #############################################################################
@@ -44,8 +39,13 @@ prometheus:
     ## ref: https://github.com/prometheus-operator/prometheus-operator/blob/release-0.44/pkg/prometheus/promcfg.go#L180-L183
     scrapeInterval: "15s"
 
+    ## Number of seconds to wait for target to respond before erroring
+    scrapeTimeout: "1m"
+
+  ## Enable Prometheus to discovery Prometheus itself over an HTTP endpoint
+  ## ref: https://prometheus.io/docs/prometheus/latest/http_sd/
   serviceMonitor:
-    selfMonitor: false
+    selfMonitor: true
 
   ## The remote_write spec configuration for Prometheus
   ## ref: https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api.md#remotewritespec
@@ -64,7 +64,7 @@ alertmanager:
 ## Configuration for Grafana ##
 ###############################
 grafana:
-  enabled: false
+  enabled: true
 
 ###################################
 ## Configuration for K8s metrics ##

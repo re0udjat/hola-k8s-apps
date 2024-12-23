@@ -1,0 +1,85 @@
+###############################
+## Repo Server Configuration ##
+###############################
+repoServer:
+  ## Repo Server HPA for HA deployment strategy
+  autoscaling:
+    enabled: true
+    minReplicas: 2
+    maxReplicas: 3
+    targetCPUUtilizationPercentage: 80
+    targetMemoryUtilizationPercentage: 80
+
+  ## Guaranteed QoS
+  ## Ref: https://kubernetes.io/docs/concepts/workloads/pods/pod-qos/
+  requests:
+    cpu: 0.5
+    memory: 512Mi
+  limits:
+    cpu: 0.5
+    memory: 512Mi
+
+##################################
+## Argo CD Server Configuration ##
+##################################
+server:
+  ## Argo CD Server HPA for HA deployment strategy
+  autoscaling:
+    enabled: true
+    minReplicas: 2
+    maxReplicas: 3
+    targetCPUUtilizationPercentage: 80
+    targetMemoryUtilizationPercentage: 80
+
+  ## Guaranteed QoS
+  ## Ref: https://kubernetes.io/docs/concepts/workloads/pods/pod-qos/
+  requests:
+    cpu: 0.5
+    memory: 512Mi
+  limits:
+    cpu: 0.5
+    memory: 512Mi
+
+  ## Split the limit of concurrent login requests between each Argo CD Server
+  ## replicas
+  ## Ref: https://argo-cd.readthedocs.io/en/stable/operator-manual/high_availability/#argocd-server
+  env:
+    - name: ARGOCD_API_SERVER_REPLICAS
+      value: "3"
+
+#########################
+## Redis Configuration ##
+#########################
+redis-ha:
+  ## Enables the Redis HA subchart and disables the custom Redis single node deployment
+  enabled: true
+
+#############################################
+## ApplicationSet Controller Configuration ##
+#############################################
+applicationSet:
+  replicas: 2
+
+  ## Guaranteed QoS
+  ## Ref: https://kubernetes.io/docs/concepts/workloads/pods/pod-qos/
+  requests:
+    cpu: 0.5
+    memory: 512Mi
+  limits:
+    cpu: 0.5
+    memory: 512Mi
+
+##########################################
+## Apllication Controller Configuartion ##
+##########################################
+controller:
+  replicas: 2
+
+  ## Guaranteed QoS
+  ## Ref: https://kubernetes.io/docs/concepts/workloads/pods/pod-qos/
+  requests:
+    cpu: 0.5
+    memory: 512Mi
+  limits:
+    cpu: 0.5
+    memory: 512Mi

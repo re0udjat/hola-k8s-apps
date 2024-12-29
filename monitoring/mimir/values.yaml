@@ -1,0 +1,8 @@
+###############################
+## Configuration for Ingress ##
+###############################
+ingress:
+  enabled: true
+  ingressClassName: nginx
+  hosts:
+    - mimir.re0udjat.com.vn

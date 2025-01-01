@@ -4,5 +4,10 @@
 ingress:
   enabled: true
   ingressClassName: nginx
+  paths:
+    distributor-headless:
+      - path: /distributor
+      - path: /api/v1/push
+      - path: /otlp/v1/metrics
   hosts:
     - mimir.re0udjat.com.vn

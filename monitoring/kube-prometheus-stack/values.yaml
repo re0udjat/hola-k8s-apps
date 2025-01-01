@@ -40,17 +40,23 @@ prometheus:
     scrapeInterval: "15s"
 
     ## Number of seconds to wait for target to respond before erroring
-    scrapeTimeout: "1m"
+    scrapeTimeout: "10s"
+
+    ## Enable --web.enable-remote-write-receiver flag on Prometheus
+    enableRemoteWriteReceiver: true
+
+    ## The remote_write spec configuration for Prometheus
+    ## ref: https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api.md#remotewritespec
+    remoteWrite:
+      - url: http://mimir-nginx.mimir.svc.cluster.local:80/api/v1/push
+
+    ## Enable Grafana dashboards provisioning for Prometheus remote write protocol
+    remoteWriteDashboards: true
 
   ## Enable Prometheus to discovery Prometheus itself over an HTTP endpoint
   ## ref: https://prometheus.io/docs/prometheus/latest/http_sd/
   serviceMonitor:
     selfMonitor: true
-
-  ## The remote_write spec configuration for Prometheus
-  ## ref: https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api.md#remotewritespec
-  remoteWrite:
-    - url: mimir-nginx.mimir.svc:80/api/v1/push
 
 ####################################
 ## Configuration for AlertManager ##

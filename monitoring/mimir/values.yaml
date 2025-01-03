@@ -1,13 +1,23 @@
-###############################
-## Configuration for Ingress ##
-###############################
-ingress:
-  enabled: true
-  ingressClassName: nginx
-  paths:
-    distributor-headless:
-      - path: /distributor
-      - path: /api/v1/push
-      - path: /otlp/v1/metrics
-  hosts:
-    - mimir.re0udjat.com.vn
+#############################
+## Configuration for Ruler ##
+#############################
+ruler:
+  enabled: false
+
+####################################
+## Configuration for Alertmanager ##
+####################################
+alertmanager:
+  enabled: false
+
+##########################################
+## Configuration for Overrides Exporter ##
+##########################################
+overrides_exporter:
+  enabled: false
+
+#######################################
+## Configuration for Query Scheduler ##
+#######################################
+query_scheduler:
+  enabled: false

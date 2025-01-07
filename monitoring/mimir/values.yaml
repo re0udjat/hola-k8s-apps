@@ -1,8 +1,27 @@
-###################################
-## Configuration for Distributor ##
-###################################
-distributor:
-  replicas: 3
+################################################
+## Configuration for Grafana Mimir Parameters ##
+################################################
+mimir:
+  structuredConfig:
+    limits:
+      ## Enforcing storage retention 3 months
+      ## Ref: https://grafana.com/docs/mimir/latest/configure/configure-metrics-storage-retention/
+      compactor_blocks_retention_period: 90d
+
+      ## Tuning for split-and-merge compaction algorithm
+      ## Recommendation: 1 shard per every 8 million active series in a tenant
+      ## Ref: https://grafana.com/docs/mimir/latest/references/architecture/components/compactor/#compaction-algorithm
+      compactor_split_groups: 2
+      compactor_split_and_merge_shards: 1
+
+    compactor:
+      ## Enforcing time range for hard deletion
+      ## Ref: https://grafana.com/docs/mimir/latest/references/architecture/components/compactor/#blocks-deletion
+      deletion_delay: 1h
+
+      ## Configure ordering defines which compaction jobs should be executed first
+      ## Ref: https://grafana.com/docs/mimir/latest/references/architecture/components/compactor/#compaction-jobs-order
+      compaction_jobs_order: "smallest-range-oldest-blocks-first"
 
 #############################
 ## Configuration for Ruler ##

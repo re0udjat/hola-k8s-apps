@@ -19,9 +19,16 @@ mimir:
       ## Ref: https://grafana.com/docs/mimir/latest/references/architecture/components/compactor/#blocks-deletion
       deletion_delay: 1h
 
-      ## Configure ordering defines which compaction jobs should be executed first
-      ## Ref: https://grafana.com/docs/mimir/latest/references/architecture/components/compactor/#compaction-jobs-order
-      compaction_jobs_order: "smallest-range-oldest-blocks-first"
+      ## Configure time for Compactor running blocks cleanup and maintenance, as well as update the bucket index
+      ## Ref: https://grafana.com/docs/mimir/latest/references/architecture/bucket-index/#how-it-gets-updated
+      cleanup_interval: 10m
+
+    blocks_storage:
+      bucket_store:
+        ## Configure time for Querier to scan the bucket, or to refresh the bucket index if enable
+        ## Ref: https://grafana.com/docs/mimir/latest/references/architecture/bucket-index/#how-its-used-by-the-querier
+        sync_interval: 10m
+      
 
 #############################
 ## Configuration for Ruler ##

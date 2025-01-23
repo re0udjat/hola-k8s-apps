@@ -1,107 +1,38 @@
-###################
-## Default rules ##
-###################
+fullnameOverride: monitoring
+namespaceOverride: monitoring
+
 defaultRules:
   create: false
 
-###############################################################
-## Configuration Node Exporter as DaemonSet to all K8s nodes ##
-###############################################################
-nodeExporter:
-  enabled: true
-  operatingSystems:
-    linux:
-      enabled: true
-    aix:
-      enabled: true
-    darwin:
-      enabled: true
-
-#############################################################################
-## Configuration Operator to manage Prometheus and Alertmanager components ##
-#############################################################################
-prometheusOperator:
-  enabled: true
-
+alertmanager:
   serviceMonitor:
     selfMonitor: false
 
-##################################
-## Configuration for Prometheus ##
-##################################
-prometheus:
-  enabled: true
-
-  ## Settings affecting prometheusSpec
-  ## ref: https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api.md#prometheusspec
-  prometheusSpec:
-    ## Interval between consecutive scrapes (Default 30s)
-    ## ref: https://github.com/prometheus-operator/prometheus-operator/blob/release-0.44/pkg/prometheus/promcfg.go#L180-L183
-    scrapeInterval: "15s"
-
-    ## Number of seconds to wait for target to respond before erroring
-    scrapeTimeout: "10s"
-
-    ## Enable --web.enable-remote-write-receiver flag on Prometheus
-    enableRemoteWriteReceiver: true
-
-    ## The remote_write spec configuration for Prometheus
-    ## ref: https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api.md#remotewritespec
-    remoteWrite:
-      - url: http://mimir-nginx.mimir.svc:80/api/v1/push
-        headers:
-          X-Scope-OrgID: prometheus
-
-    ## Enable Grafana dashboards provisioning for Prometheus remote write protocol
-    remoteWriteDashboards: true
-
-  ## Enable Prometheus to discovery Prometheus itself over an HTTP endpoint
-  ## ref: https://prometheus.io/docs/prometheus/latest/http_sd/
+coreDns:
   serviceMonitor:
-    selfMonitor: true
+    enabled: false
 
-####################################
-## Configuration for AlertManager ##
-####################################
-alertmanager:
-  enabled: false
+kubeEtcd:
+  serviceMonitor:
+    enabled: false
 
-###############################
-## Configuration for Grafana ##
-###############################
-grafana:
-  enabled: true
+kubeScheduler:
+  serviceMonitor:
+    enabled: false
 
-###################################
-## Configuration for K8s metrics ##
-###################################
-kubeStateMetrics:
-  enabled: false
+kubeProxy:
+  serviceMonitor:
+    enabled: false
 
-## Component for scraping the K8s API server
+kubeControllerManager:
+  serviceMonitor:
+    enabled: false
+
 kubeApiServer:
   enabled: false
 
-## Component for scraping the K8s kubelet and kubelet-hosted cAdvisor
+kubeStateMetrics:
+  enabled: false
+
 kubelet:
-  enabled: false
-
-## Component for scraping K8s CoreDns
-coreDns:
-  enabled: false
-
-## Component for scraping K8s Controller Manager
-kubeControllerManager:
-  enabled: false
-
-## Component for scraping K8s Etcd
-kubeEtcd:
-  enabled: false
-
-## Component for scraping K8s Scheduler
-kubeScheduler:
-  enabled: false
-
-## Component for scraping K8s proxy
-kubeProxy:
   enabled: false
